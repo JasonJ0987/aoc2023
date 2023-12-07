@@ -18,6 +18,6 @@ def part1(data):
         if ord('0') <= ord(data[row-1][col-1]) <= ord('9'):
           pass
           # solve for a way to figure out the full digit that is touching the symbol
-# print(parse(puzzle.input_data))
+# print(parse(puzzle.input_data)) test
 # parse("467..114..\n...*......\n..35..633.\n......#...\n617*......\n.....+.58.\n..592.....\n......755.\n...$.*....\n.664.598..")
 part1(parse("467..114..\n...*......\n..35..633.\n......#...\n617*......\n.....+.58.\n..592.....\n......755.\n...$.*....\n.664.598.."))
