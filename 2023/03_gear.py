@@ -14,18 +14,18 @@ def part1(data):
       if ord('0') <= ord(data[row][col]) <= ord('9') or ord(data[row][col]) == ord('.'):
         pass
       else:
-        current_t = data[row][col]
         # print(data[row-1][col-1], data[row-1][col], data[row-1][col+1], data[row][col-1], data[row][col+1], data[row+1][col-1], data[row+1][col], data[row+1][col+1])
         # represents which sections are touching the symbol
+        x=0
         for r in range(-1, 2):
+          ready = True
           for c in range(-1, 2):
-            current_s = data[row+r][col+c]
-            if ord('0') <= ord(data[row+r][col+c]) <= ord('9'):
+            if ord('0') <= ord(data[row+r][col+c]) <= ord('9') and ready:
               i = 1
               j = 1
               num = data[row+r][col+c]
               while True:
-                if col+c-i > 0 and ord('0') <= ord(data[row+r][col+c-i]) <= ord('9'):
+                if col+c-i > -1 and ord('0') <= ord(data[row+r][col+c-i]) <= ord('9'):
                   num = data[row+r][col+c-i] + num
                   i += 1
                 elif col+c+j < len(data) and ord('0') <= ord(data[row+r][col+c+j]) <= ord('9'):
@@ -33,11 +33,14 @@ def part1(data):
                   j += 1
                 else:
                   result.append(int(num))
+                  ready = False
                   break
-  for ind, number in enumerate(result):
-    if ind > 0:
-      if number == result[ind-1]:
-        result.pop(ind)
+            elif ord(data[row+r][col+c]) == ord('.') or data[row+r][col+c] == data[row][col]:
+              ready = True
+  # for ind, number in enumerate(result):
+  #   if ind > 0:
+  #     if number == result[ind-1]:
+  #       result.pop(ind)
   return print(sum(result))
 
 
