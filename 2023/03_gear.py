@@ -16,15 +16,17 @@ def part1(data):
       else:
         # print(data[row-1][col-1], data[row-1][col], data[row-1][col+1], data[row][col-1], data[row][col+1], data[row+1][col-1], data[row+1][col], data[row+1][col+1])
         # represents which sections are touching the symbol
-        x=0
         for r in range(-1, 2):
           ready = True
+          # initialize algorithm
+          # go through every section of the 3x3 grid around the target
           for c in range(-1, 2):
             if ord('0') <= ord(data[row+r][col+c]) <= ord('9') and ready:
               i = 1
               j = 1
               num = data[row+r][col+c]
               while True:
+                # detect flanking numbers to see full digit
                 if col+c-i > -1 and ord('0') <= ord(data[row+r][col+c-i]) <= ord('9'):
                   num = data[row+r][col+c-i] + num
                   i += 1
@@ -37,10 +39,7 @@ def part1(data):
                   break
             elif ord(data[row+r][col+c]) == ord('.') or data[row+r][col+c] == data[row][col]:
               ready = True
-  # for ind, number in enumerate(result):
-  #   if ind > 0:
-  #     if number == result[ind-1]:
-  #       result.pop(ind)
+              # reinitialize algorithm when there is a dot or at the center of the target
   return print(sum(result))
 
 
