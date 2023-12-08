@@ -49,4 +49,44 @@ def part1(data):
 # print(parse(puzzle.input_data)) test
 # parse("467..114..\n...*......\n..35..633.\n......#...\n617*......\n.....+.58.\n..592.....\n......755.\n...$.*....\n.664.598..")
 # part1(parse("467..114..\n...*......\n..35..633.\n......#...\n617*......\n.....+.58.\n..592.....\n......755.\n...$.*....\n.664.598.."))
-part1(parse(puzzle.input_data))
+# part1(parse(puzzle.input_data))
+
+
+def part2(data):
+  # can prolly use a similar system
+  result = []
+  for row in range(len(data)-1):
+    for col in range(len(data[row])):
+      if ord(data[row][col]) == ord('*'):
+        is_gear = []
+        for r in range(-1, 2):
+          ready = True
+          for c in range(-1, 2):
+            if ord('0') <= ord(data[row+r][col+c]) <= ord('9') and ready:
+              i = 1
+              j = 1
+              num = data[row+r][col+c]
+              while True:
+                if col+c-i > -1 and ord('0') <= ord(data[row+r][col+c-i]) <= ord('9'):
+                  num = data[row+r][col+c-i] + num
+                  i += 1
+                elif col+c+j < len(data) and ord('0') <= ord(data[row+r][col+c+j]) <= ord('9'):
+                  num = num + data[row+r][col+c+j]
+                  j += 1
+                else:
+                  is_gear.append(int(num))
+                  ready = False
+                  break
+            elif ord(data[row+r][col+c]) == ord('.') or data[row+r][col+c] == data[row][col]:
+              ready = True
+        if len(is_gear) == 2:
+          cur = 1
+          for gear in is_gear:
+            cur = cur*gear
+          result.append(cur)
+      else:
+        pass
+  return print(sum(result))
+
+part2(parse("467..114..\n...*......\n..35..633.\n......#...\n617*......\n.....+.58.\n..592.....\n......755.\n...$.*....\n.664.598.."))
+part2(parse(puzzle.input_data))
